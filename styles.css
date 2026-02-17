@@ -27,6 +27,7 @@ html.no-fouc {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -38,6 +39,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 body.loaded {
@@ -48,6 +50,7 @@ body.loaded {
 img {
   max-width: 100%;
   height: auto;
+  overflow-x: hidden;
 }
 
 a {
@@ -63,6 +66,7 @@ ul {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  overflow-x: hidden;
 }
 
 .section {
@@ -109,6 +113,7 @@ ul {
   color: white;
   z-index: 1000;
   padding: 1rem 0;
+  overflow-x: hidden;
 }
 
 .header-inner {
@@ -847,6 +852,11 @@ ul {
 }
 
 @media (max-width: 768px) {
+  * {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
   .hero-content {
     padding: 110px 20px 0;
   }
