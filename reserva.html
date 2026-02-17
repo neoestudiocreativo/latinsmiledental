@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Cita | Latin Smile Dental</title>
+    <meta name="description" content="Agenda tu cita en Latin Smile Dental. Atención odontológica integral en Houston y Miami." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.7">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/themes/airbnb.css">
+    <style>
+        :root {
+            --color-primary: #C4A24D;
+            --color-primary-rgb: 196, 162, 77;
+            --color-secondary: #0A0909;
+        }
+
+        .booking-progress {
+            position: relative;
+            padding: 30px 0;
+            margin-bottom: 2rem;
+        }
+
+        .booking-progress::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #e5e7eb;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .step.active .step-number {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(196, 162, 77, 0.4);
+        }
+
+        .step.active .step-text {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .service-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .service-card.selected {
+            border-color: var(--color-primary);
+            background: rgba(196, 162, 77, 0.05);
+            box-shadow: 0 4px 15px rgba(196, 162, 77, 0.2);
+        }
+
+        .service-card .service-icon {
+            color: var(--color-primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-secondary);
+            text-align: center;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .time-slot {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            font-weight: 500;
+        }
+
+        .time-slot:hover {
+            border-color: var(--color-primary);
+            background: rgba(196, 162, 77, 0.1);
+        }
+
+        .time-slot.selected {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .booking-section {
+            display: none;
+        }
+
+        .booking-section.active {
+            display: block;
+        }
+
+        .btn-booking {
+            background: var(--color-primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-booking:hover {
+            background: #b18f3a;
+            transform: translateY(-2px);
+        }
+
+        .btn-booking:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-booking-secondary {
+            background: #6b7280;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-booking-secondary:hover {
+            background: #4b5563;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .summary-card {
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .success-message h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .flatpickr-calendar {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange,
+        .flatpickr-day.selected.inRange,
+        .flatpickr-day.startRange.inRange,
+        .flatpickr-day.endRange.inRange,
+        .flatpickr-day.focus {
+            background: var(--color-primary) !important;
+            border-color: var(--color-primary) !important;
+        }
+
+        @media (max-width: 768px) {
+            .booking-progress {
+                overflow-x: auto;
+                padding: 20px 10px;
+            }
+
+            .step {
+                min-width: 80px;
+            }
+
+            .step-text {
+                font-size: 11px;
+            }
+
+            .step-number {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="Inicio">
+                <img src="images/logo.png" alt="Latin Smile Dental" class="brand-logo" />
+            </a>
+            <button class="nav-toggle" aria-label="Menú de navegación" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-overlay"></div>
+            <nav class="site-nav" role="navigation" aria-label="Menú principal">
+                <ul>
+                    <li><a href="index.html#quienes">Quiénes somos</a></li>
+                    <li><a href="index.html#servicios">Servicios</a></li>
+                    <li><a href="index.html#tratamientos">Tratamientos</a></li>
+                    <li><a href="index.html#sedes">Sedes</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a class="btn btn-primary" href="#contacto">Agendar cita</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding-top: 100px; min-height: 100vh; background: #f9f9f9;">
+        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 1rem; color: var(--color-secondary);">Agenda tu Cita</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem; font-size: 1.1rem;">Reserva tu cita en pocos pasos</p>
+
+            <div class="booking-progress">
+                <div class="flex justify-between items-center" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Servicio</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Fecha y Hora</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Datos</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <span class="step-number">4</span>
+                        <span class="step-text">Confirmación</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-section active" id="serviceSelection">
+                <div style="background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">Selecciona un Servicio</h2>
+                    <div class="services-grid" id="servicesList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-section" id="dateSelection">
+                <div style="background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">Selecciona Fecha y Hora</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Fecha</label>
+                            <input type="text" id="datePicker" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Horarios Disponibles</label>
+                            <div id="timeSlots" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px; background: #f9fafb; border-radius: 8px; max-height: 250px; overflow-y: auto;">
+                                <p style="grid-column: 1/-1; text-align: center; color: #999; padding: 20px;">Selecciona una fecha para ver los horarios</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-section" id="patientForm">
+                <div style="background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">Datos del Paciente</h2>
+                    <form id="appointmentForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Apellido</label>
+                                <input type="text" id="lastname" name="lastname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notas adicionales (opcional)</label>
+                            <textarea id="notes" name="notes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="booking-section" id="confirmation">
+                <div style="background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                    <div id="appointmentSummary"></div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                <button id="prevStep" class="btn-booking-secondary" style="display: none;">Anterior</button>
+                <button id="nextStep" class="btn-booking" style="margin-left: auto;">Siguiente</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="Latin Smile Dental" />
+                    <p class="tagline">"Salud y bienestar, juntos en un solo lugar."</p>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-nav-column">
+                        <h4>Servicios</h4>
+                        <ul>
+                            <li><a href="index.html#servicios">Limpieza dental</a></li>
+                            <li><a href="index.html#servicios">Odontología estética</a></li>
+                            <li><a href="index.html#servicios">Ortodoncia</a></li>
+                            <li><a href="index.html#servicios">Implantes dentales</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h4>Sedes</h4>
+                        <ul>
+                            <li><a href="index.html#sedes">Houston, TX</a></li>
+                            <li><a href="index.html#sedes">Miami, FL</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h4>Enlaces</h4>
+                        <ul>
+                            <li><a href="index.html#quienes">Quiénes somos</a></li>
+                            <li><a href="index.html#servicios">Servicios</a></li>
+                            <li><a href="index.html#contacto">Contacto</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 Latin Smile Dental. Todos los derechos reservados.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/profile.php?id=61550653690372" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/latin_smile_dental_clinic/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.threads.com/@latin_smile_dental_clinic?xmt=AQF08WepoEnJaffMWwCyROv4E4HcqGIOQxqRaCF1e6BTXPo" target="_blank" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.6.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/18328140718" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp" style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #C4A24D; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(196, 162, 77, 0.4); z-index: 1000; transition: all 0.3s ease;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.js"></script>
+    <script src="script.js"></script>
+    <script>
+        window.services = [
+            {
+                id: 1,
+                name: 'Limpieza y Prevención',
+                description: 'Chequeos periódicos, profilaxis y educación para una salud bucal duradera.',
+                duration: 60,
+                price: 120.00,
+                icon: 'fa-teeth'
+            },
+            {
+                id: 2,
+                name: 'Odontología Estética',
+                description: 'Blanqueamiento, carillas y tratamientos para embellecer tu sonrisa.',
+                duration: 90,
+                price: 250.00,
+                icon: 'fa-teeth-open'
+            },
+            {
+                id: 3,
+                name: 'Ortodoncia',
+                description: 'Corrección de alineación dental con opciones modernas y cómodas.',
+                duration: 60,
+                price: 180.00,
+                icon: 'fa-tooth'
+            },
+            {
+                id: 4,
+                name: 'Implantes Dentales',
+                description: 'Soluciones de reemplazo confiables para recuperar función y estética.',
+                duration: 120,
+                price: 1500.00,
+                icon: 'fa-user-md'
+            },
+            {
+                id: 5,
+                name: 'Restauraciones',
+                description: 'Resinas, coronas y puentes para rehabilitar dientes dañados.',
+                duration: 60,
+                price: 200.00,
+                icon: 'fa-crown'
+            },
+            {
+                id: 6,
+                name: 'Atención de Urgencias',
+                description: 'Evaluación y manejo oportuno de dolor, fracturas y emergencias.',
+                duration: 45,
+                price: 150.00,
+                icon: 'fa-first-aid'
+            }
+        ];
+
+        const appointments = [];
+        const appointmentManager = {
+            addAppointment(appointment) {
+                appointments.push({
+                    ...appointment,
+                    id: appointments.length + 1,
+                    status: 'pending'
+                });
+                return appointments[appointments.length - 1];
+            },
+            getAvailableSlots(date, serviceId) {
+                const service = window.services.find(s => s.id === parseInt(serviceId));
+                if (!service) return [];
+                
+                const slots = [];
+                const [year, month, day] = date.split('-');
+                let currentTime = new Date(year, month - 1, day, 9, 0, 0);
+                let endTime = new Date(year, month - 1, day, 17, 0, 0);
+
+                while (currentTime < endTime) {
+                    const slot = {
+                        start: currentTime.toISOString(),
+                        end: new Date(currentTime.getTime() + service.duration * 60000).toISOString()
+                    };
+                    slots.push(slot);
+                    currentTime = new Date(currentTime.getTime() + service.duration * 60000);
+                }
+                return slots;
+            }
+        };
+
+        class BookingSystem {
+            constructor() {
+                this.currentStep = 1;
+                this.maxSteps = 4;
+                this.selectedService = null;
+                this.selectedDate = null;
+                this.selectedTime = null;
+                this.patientData = null;
+
+                this.initializeElements();
+                this.setupEventListeners();
+                this.loadServices();
+                this.initNavigation();
+            }
+
+            initializeElements() {
+                this.serviceSelection = document.getElementById('serviceSelection');
+                this.dateSelection = document.getElementById('dateSelection');
+                this.patientForm = document.getElementById('patientForm');
+                this.confirmation = document.getElementById('confirmation');
+                this.prevButton = document.getElementById('prevStep');
+                this.nextButton = document.getElementById('nextStep');
+                this.servicesList = document.getElementById('servicesList');
+                this.timeSlots = document.getElementById('timeSlots');
+                this.appointmentForm = document.getElementById('appointmentForm');
+                this.appointmentSummary = document.getElementById('appointmentSummary');
+            }
+
+            initNavigation() {
+                const navToggle = document.querySelector('.nav-toggle');
+                const siteNav = document.querySelector('.site-nav');
+                const navOverlay = document.querySelector('.nav-overlay');
+                
+                function closeMenu() {
+                    siteNav.classList.remove('active');
+                    navToggle.classList.remove('active');
+                    body.classList.remove('menu-open');
+                    if (navOverlay) navOverlay.classList.remove('active');
+                }
+                
+                function openMenu() {
+                    siteNav.classList.add('active');
+                    navToggle.classList.add('active');
+                    body.classList.add('menu-open');
+                    if (navOverlay) navOverlay.classList.add('active');
+                }
+                
+                const body = document.body;
+                
+                if (navToggle && siteNav) {
+                    navToggle.addEventListener('click', () => {
+                        if (siteNav.classList.contains('active')) closeMenu();
+                        else openMenu();
+                    });
+                    
+                    if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+                    
+                    const navLinks = siteNav.querySelectorAll('a');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            if (window.innerWidth <= 992) closeMenu();
+                        });
+                    });
+                    
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth > 992) closeMenu();
+                    });
+                }
+            }
+
+            setupEventListeners() {
+                this.prevButton.addEventListener('click', () => this.navigateStep('prev'));
+                this.nextButton.addEventListener('click', () => this.navigateStep('next'));
+
+                this.servicesList.addEventListener('click', (e) => {
+                    const serviceCard = e.target.closest('.service-card');
+                    if (serviceCard) {
+                        const serviceId = parseInt(serviceCard.dataset.serviceId);
+                        this.selectService(serviceId);
+                    }
+                });
+
+                this.timeSlots.addEventListener('click', (e) => {
+                    const timeSlot = e.target.closest('.time-slot');
+                    if (timeSlot) this.selectTimeSlot(timeSlot);
+                });
+
+                this.initializeDatePicker();
+            }
+
+            initializeDatePicker() {
+                this.datePicker = flatpickr("#datePicker", {
+                    locale: "es",
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    disable: [
+                        function(date) {
+                            return date.getDay() === 0;
+                        }
+                    ],
+                    onChange: (selectedDates) => {
+                        if (selectedDates.length > 0) {
+                            this.selectedDate = selectedDates[0];
+                            this.loadTimeSlots();
+                        }
+                    }
+                });
+            }
+
+            loadServices() {
+                this.servicesList.innerHTML = window.services.map(service => `
+                    <div class="service-card" data-service-id="${service.id}">
+                        <div class="service-icon">
+                            <i class="fas ${service.icon}"></i>
+                        </div>
+                        <h3>${service.name}</h3>
+                        <p>${service.description}</p>
+                        <p style="font-weight: 600; color: var(--color-primary);">$${service.price.toFixed(2)}</p>
+                    </div>
+                `).join('');
+            }
+
+            loadTimeSlots() {
+                if (!this.selectedService || !this.selectedDate) {
+                    this.timeSlots.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 20px;">Selecciona un servicio y una fecha para ver los horarios.</p>';
+                    return;
+                }
+
+                const formattedDate = this.selectedDate.toISOString().split('T')[0];
+                const availableSlots = appointmentManager.getAvailableSlots(formattedDate, this.selectedService.id);
+
+                if (availableSlots.length === 0) {
+                    this.timeSlots.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 20px;">No hay horarios disponibles para esta fecha.</p>';
+                    return;
+                }
+
+                this.timeSlots.innerHTML = availableSlots.map(slot => {
+                    const startTime = new Date(slot.start);
+                    const timeDisplay = startTime.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
+                    return `
+                        <button class="time-slot" data-start="${slot.start}" data-end="${slot.end}">
+                            ${timeDisplay}
+                        </button>
+                    `;
+                }).join('');
+            }
+
+            selectTimeSlot(timeSlot) {
+                const previousSelected = this.timeSlots.querySelector('.time-slot.selected');
+                if (previousSelected) {
+                    previousSelected.classList.remove('selected');
+                }
+
+                timeSlot.classList.add('selected');
+                this.selectedTime = {
+                    start: timeSlot.dataset.start,
+                    end: timeSlot.dataset.end
+                };
+            }
+
+            selectService(serviceId) {
+                this.selectedService = window.services.find(s => s.id === serviceId);
+
+                document.querySelectorAll('.service-card').forEach(card => {
+                    const isSelected = parseInt(card.dataset.serviceId) === serviceId;
+                    card.classList.toggle('selected', isSelected);
+                });
+
+                if (this.selectedDate) {
+                    this.loadTimeSlots();
+                }
+            }
+
+            navigateStep(direction) {
+                const newStep = direction === 'next' ? this.currentStep + 1 : this.currentStep - 1;
+
+                if (newStep < 1 || newStep > this.maxSteps) return;
+
+                if (direction === 'next' && !this.validateCurrentStep()) return;
+
+                this.currentStep = newStep;
+                this.updateUI();
+
+                if (this.currentStep === this.maxSteps) {
+                    this.createAppointment();
+                }
+            }
+
+            validateCurrentStep() {
+                switch (this.currentStep) {
+                    case 1:
+                        if (!this.selectedService) {
+                            alert('Por favor, selecciona un servicio');
+                            return false;
+                        }
+                        break;
+                    case 2:
+                        if (!this.selectedDate || !this.selectedTime) {
+                            alert('Por favor, selecciona fecha y hora');
+                            return false;
+                        }
+                        break;
+                    case 3:
+                        if (!this.appointmentForm.checkValidity()) {
+                            this.appointmentForm.reportValidity();
+                            return false;
+                        }
+                        this.patientData = Object.fromEntries(new FormData(this.appointmentForm));
+                        break;
+                }
+                return true;
+            }
+
+            updateUI() {
+                document.querySelectorAll('.step').forEach((step, index) => {
+                    step.classList.toggle('active', index + 1 <= this.currentStep);
+                });
+
+                this.serviceSelection.classList.toggle('active', this.currentStep === 1);
+                this.dateSelection.classList.toggle('active', this.currentStep === 2);
+                this.patientForm.classList.toggle('active', this.currentStep === 3);
+                this.confirmation.classList.toggle('active', this.currentStep === 4);
+
+                this.prevButton.style.display = this.currentStep === 1 ? 'none' : 'block';
+                this.nextButton.textContent = this.currentStep === this.maxSteps ? 'Confirmar' : 'Siguiente';
+            }
+
+            createAppointment() {
+                const appointment = {
+                    serviceId: this.selectedService.id,
+                    start: this.selectedTime.start,
+                    end: this.selectedTime.end,
+                    patientData: this.patientData
+                };
+
+                const createdAppointment = appointmentManager.addAppointment(appointment);
+                const startTime = new Date(createdAppointment.start).toLocaleString('es');
+
+                this.appointmentSummary.innerHTML = `
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>¡Cita Agendada!</h3>
+                        <p>Tu cita ha sido registrada exitosamente. Nos pondremos en contacto contigo para confirmar.</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Detalles de tu Cita</h4>
+                        <div class="summary-item">
+                            <span class="summary-label">Servicio:</span>
+                            <span class="summary-value">${this.selectedService.name}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Fecha y Hora:</span>
+                            <span class="summary-value">${startTime}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Paciente:</span>
+                            <span class="summary-value">${this.patientData.name} ${this.patientData.lastname}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Contacto:</span>
+                            <span class="summary-value">${this.patientData.email}<br>${this.patientData.phone}</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <a href="index.html" class="btn-booking">Volver al Inicio</a>
+                    </div>
+                `;
+
+                this.nextButton.disabled = true;
+                this.nextButton.style.opacity = '0.5';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new BookingSystem();
+        });
+    </script>
+</body>
+</html>

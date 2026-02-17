@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latin Smile Dental | Clínica Dental en Houston y Miami</title>
+    <meta name="description" content="Latin Smile Dental: atención odontológica integral con enfoque cálido y profesional. Sedes en Houston y Miami. Agenda tu cita y transforma tu sonrisa." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.7">
+    <style>
+      /* Estilos críticos para evitar FOUC */
+      body { opacity: 0; }
+      .loaded { opacity: 1; transition: opacity 0.3s; }
+    </style>
+    <script>
+      // Prevenir FOUC (Flash of Unstyled Content)
+      document.documentElement.classList.add('no-fouc');
+      window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
+        document.documentElement.classList.remove('no-fouc');
+      });
+    </script>
+</head>
+<body class="no-fouc">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#home" aria-label="Inicio">
+          <img src="images/logo.png" alt="Latin Smile Dental" class="brand-logo" />
+        </a>
+<button class="nav-toggle" aria-label="Menú de navegación" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-overlay"></div>
+        <nav class="site-nav" role="navigation" aria-label="Menú principal">
+          <ul>
+            <li><a href="#quienes">Quiénes somos</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#tratamientos">Tratamientos</a></li>
+            <li><a href="#sedes">Sedes</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a class="btn btn-primary" href="reserva.html">Agendar cita</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Sonrisas saludables & radiantes</h1>
+          <p class="subtitle">
+            Clínica dental especializada en cuidar de tu sonrisa con los más altos estándares de calidad
+          </p>
+          <div class="hero-actions">
+            <a href="reserva.html" class="btn btn-primary">Agendar consulta</a>
+          </div>
+        </div>
+        <div class="hero-slider">
+        </div>
+      </section>
+
+      <section id="quienes" class="section about-us">
+        <div class="container">
+          <h2 class="section-title gold-title">¿QUIÉNES SOMOS?</h2>
+          <div class="about-content">
+            <div class="about-image">
+              <img src="images/quienes somos.png" alt="Equipo de Latin Smile Dental" class="about-img">
+            </div>
+            <div class="about-text">
+              <p class="about-description">
+                En Latin Smile Dental, nuestra pasión es cuidar de tu sonrisa. Con sedes en Houston y Miami, somos un equipo de profesionales altamente capacitados, comprometidos con ofrecer servicios odontológicos de la más alta calidad. 
+                Nos destacamos por nuestra atención personalizada y un ambiente cálido que convierte cada visita al dentista en una experiencia positiva.
+              </p>
+              
+              <div class="about-values">
+                <div class="value-card">
+                  <div class="value-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <h3>Misión</h3>
+                  <p>Ser la clínica dental de referencia en Houston y Miami, reconocida por transformar sonrisas y mejorar la calidad de vida de nuestros pacientes, mediante tecnología avanzada y un compromiso constante con la excelencia y la innovación.</p>
+                </div>
+                
+                <div class="value-card">
+                  <div class="value-icon">
+                    <i class="fas fa-eye"></i>
+                  </div>
+                  <h3>Visión</h3>
+                  <p>Proporcionar servicios odontológicos integrales que promuevan la salud bucal y la confianza de nuestros pacientes. 
+                  En Latin Smile Dental, nos esforzamos por crear sonrisas saludables y duraderas, a través de un enfoque ético, profesional y humano, adaptándonos a las necesidades individuales de cada persona.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- La sección de tratamientos ha sido eliminada -->
+
+      <section id="enamorados" class="section about" style="background-color: #0A0909; color: white;">
+        <div class="container">
+          <h2 class="section-title gold-title" style="color: white;">Enamorados de las sonrisas</h2>
+          <p class="section-subtitle" style="color: white;">
+            Profesionales apasionados por crear sonrisas saludables y radiantes que mejoran la calidad de vida
+          </p>
+          
+          <!-- Los cuadros de valores han sido eliminados -->
+        </div>
+      </section>
+
+      <section id="servicios" class="section services">
+        <div class="container">
+          <h2 class="section-title">Servicios destacados</h2>
+          <div class="services-grid">
+            <article class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-teeth"></i>
+              </div>
+              <h3>Limpieza y prevención</h3>
+              <p>Chequeos periódicos, profilaxis y educación para una salud bucal duradera.</p>
+              <a href="#contacto" class="service-link">Más información <i class="fas fa-arrow-right"></i></a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-teeth-open"></i>
+              </div>
+              <h3>Odontología estética</h3>
+              <p>Blanqueamiento, carillas y tratamientos para embellecer tu sonrisa.</p>
+              <a href="#contacto" class="service-link">Más información <i class="fas fa-arrow-right"></i></a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-tooth"></i>
+              </div>
+              <h3>Ortodoncia</h3>
+              <p>Corrección de alineación dental con opciones modernas y cómodas.</p>
+              <a href="#contacto" class="service-link">Más información <i class="fas fa-arrow-right"></i></a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-user-md"></i>
+              </div>
+              <h3>Implantes dentales</h3>
+              <p>Soluciones de reemplazo confiables para recuperar función y estética.</p>
+              <a href="#contacto" class="service-link">Más información <i class="fas fa-arrow-right"></i></a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-crown"></i>
+              </div>
+              <h3>Restauraciones</h3>
+              <p>Resinas, coronas y puentes para rehabilitar dientes dañados.</p>
+              <a href="#contacto" class="service-link">Más información <i class="fas fa-arrow-right"></i></a>
+            </article>
+            <article class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-first-aid"></i>
+              </div>
+              <h3>Atención de urgencias</h3>
+              <p>Evaluación y manejo oportuno de dolor, fracturas y emergencias.</p>
+              <a href="#contacto" class="service-link">Más información <i class="fas fa-arrow-right"></i></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="antes-despues" class="section before-after">
+        <div class="container">
+          <h2 class="section-title">Transformaciones reales</h2>
+          <p class="section-subtitle">Desliza para ver los resultados de nuestros tratamientos</p>
+          
+          <div class="before-after-container">
+            <div class="case-wrapper">
+              <div class="image-compare">
+                <div class="image-wrapper">
+                  <img src="images/antes 1.png" alt="Antes del tratamiento" class="before-image">
+                  <img src="images/despues 1.png" alt="Después del tratamiento" class="after-image">
+                </div>
+                <div class="slider-handle">
+                  <div class="slider-line"></div>
+                  <div class="slider-button"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-wrapper">
+              <div class="image-compare">
+                <div class="image-wrapper">
+                  <img src="images/antes 2.png" alt="Antes del tratamiento" class="before-image">
+                  <img src="images/despues 2.png" alt="Después del tratamiento" class="after-image">
+                </div>
+                <div class="slider-handle">
+                  <div class="slider-line"></div>
+                  <div class="slider-button"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonios" class="section testimonials">
+        <div class="container">
+          <h2 class="section-title gold-title">Lo que dicen nuestros pacientes</h2>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p class="testimonial-text">"La atención médica en esta clínica ha marcado la diferencia en mi vida. El personal es altamente competentes y brindan un apoyo constante. Me siento agradecida por su dedicación y cuidado."</p>
+              </div>
+              <div class="testimonial-author">
+                <img src="images/maria de los angeles fiz.png" alt="Maria de los Angeles Fiz" class="author-avatar">
+                <p class="author-name">Maria de los Angeles Fiz</p>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p class="testimonial-text">"Recomendaría esta clínica a cualquiera que busque atención diseño de sonrisa de alta calidad. El equipo médico se toma el tiempo para explicar cada paso del tratamiento. Mi experiencia aquí ha sido excepcional."</p>
+              </div>
+              <div class="testimonial-author">
+                <img src="images/alfredo durang.png" alt="Alfredo Durang" class="author-avatar">
+                <p class="author-name">Alfredo Durang</p>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p class="testimonial-text">"Estoy impresionado por la excelencia de la atención médica que he recibido en esta clínica. Sin dudas, esta es la clínica a la que seguiré acudiendo en el futuro."</p>
+              </div>
+              <div class="testimonial-author">
+                <img src="images/mailin salazat.png" alt="Mailin Salazat" class="author-avatar">
+                <p class="author-name">Mailin Salazat</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sedes" class="section locations">
+        <div class="container">
+          <h2 class="section-title">Nuestras sedes</h2>
+          <div class="locations-grid">
+            <article class="location-card">
+              <div class="location-image houston">
+                <div class="location-overlay">
+                  <h3>Houston, TX</h3>
+                </div>
+              </div>
+              <div class="location-content">
+                <h3>Houston, TX</h3>
+<p>Atención integral con enfoque humano y tecnología avanzada.</p>
+                <ul class="location-details">
+                  <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Houston, TX</li>
+                  <li><i class="fas fa-phone"></i> +1 832-814-0718</li>
+                  <li><i class="fas fa-clock"></i> Lun-Vie: 9am-6pm | Sáb: 9am-2pm</li>
+                </ul>
+                <a href="#contacto" class="btn btn-outline">Agendar cita</a>
+              </div>
+            </article>
+            <article class="location-card">
+              <div class="location-image miami">
+                <div class="location-overlay">
+                  <h3>Miami, FL</h3>
+                </div>
+              </div>
+              <div class="location-content">
+                <h3>Miami, FL</h3>
+<p>Experiencia cálida y personalizada para transformar tu sonrisa.</p>
+                <ul class="location-details">
+                  <li><i class="fas fa-map-marker-alt"></i> 456 Ocean Drive, Miami, FL</li>
+                  <li><i class="fas fa-phone"></i> +1 832-814-0718</li>
+                  <li><i class="fas fa-clock"></i> Lun-Vie: 9am-6pm | Sáb: 9am-2pm</li>
+                </ul>
+                <a href="#contacto" class="btn btn-outline">Agendar cita</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" class="section contact">
+        <div class="container">
+          <h2 class="section-title">Contacto</h2>
+          <div class="contact-wrapper">
+            <div class="contact-info">
+              <p class="contact-lead">
+                ¿Listo para tu próxima consulta? Envíanos un mensaje y nuestro equipo
+                te responderá para agendar tu cita.
+              </p>
+              <ul class="contact-list">
+<li><i class="fas fa-envelope"></i> <strong>Email:</strong> contacto@latinsmile.com</li>
+                <li><i class="fas fa-phone"></i> <strong>Teléfono:</strong> +1 832-814-0718</li>
+                <li><i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Consulta nuestras sedes</li>
+              </ul>
+              <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61550653690372" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/latin_smile_dental_clinic/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.threads.com/@latin_smile_dental_clinic?xmt=AQF08WepoEnJaffMWwCyROv4E4HcqGIOQxqRaCF1e6BTXPo" target="_blank" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.6.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg></a>
+              </div>
+            </div>
+            <form class="contact-form" aria-label="Formulario de contacto">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Tu número de teléfono" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Tu correo electrónico" required />
+              </div>
+              <div class="form-group">
+                <label for="servicio">Servicio de interés</label>
+                <select id="servicio" name="servicio">
+                  <option value="">Selecciona un servicio</option>
+                  <option value="limpieza">Limpieza dental</option>
+                  <option value="estetica">Odontología estética</option>
+                  <option value="ortodoncia">Ortodoncia</option>
+                  <option value="implantes">Implantes dentales</option>
+                  <option value="restauraciones">Restauraciones</option>
+                  <option value="urgencias">Urgencias</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img src="images/logo.png" alt="Latin Smile Dental" />
+            <p class="tagline">"Salud y bienestar, juntos en un solo lugar."</p>
+          </div>
+          <div class="footer-nav">
+            <div class="footer-nav-column">
+              <h4>Servicios</h4>
+              <ul>
+                <li><a href="#limpieza">Limpieza dental</a></li>
+                <li><a href="#estetica">Odontología estética</a></li>
+                <li><a href="#ortodoncia">Ortodoncia</a></li>
+                <li><a href="#implantes">Implantes dentales</a></li>
+              </ul>
+            </div>
+            <div class="footer-nav-column">
+              <h4>Sedes</h4>
+              <ul>
+                <li><a href="#houston">Houston, TX</a></li>
+                <li><a href="#miami">Miami, FL</a></li>
+              </ul>
+            </div>
+            <div class="footer-nav-column">
+              <h4>Enlaces</h4>
+              <ul>
+                <li><a href="#quienes">Quiénes somos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+<div class="footer-bottom">
+          <p class="copyright">© 2025 Latin Smile Dental. Todos los derechos reservados.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/profile.php?id=61550653690372" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/latin_smile_dental_clinic/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.threads.com/@latin_smile_dental_clinic?xmt=AQF08WepoEnJaffMWwCyROv4E4HcqGIOQxqRaCF1e6BTXPo" target="_blank" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.6.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg></a>
+          </div>
+        </div>
+</div>
+    </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/18328140718" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+  </body>
+</html>
